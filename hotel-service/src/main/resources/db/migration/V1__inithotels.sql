@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS hotels (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    city VARCHAR(255) NOT NULL,
+    country VARCHAR(255) NOT NULL,
+    phone VARCHAR(50),
+    email VARCHAR(255)
+    );
