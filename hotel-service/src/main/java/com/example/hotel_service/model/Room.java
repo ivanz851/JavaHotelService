@@ -3,6 +3,8 @@ package com.example.hotel_service.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "rooms")
 @Getter
@@ -15,7 +17,7 @@ public class Room {
     private Long id;
     private String description;
     private Integer capacity;
-    private Integer pricePerNight;
+    private BigDecimal pricePerNight;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id", nullable = false)
