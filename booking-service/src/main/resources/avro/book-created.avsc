@@ -1,0 +1,9 @@
+{
+  "type": "record",
+  "name": "BookCreateEvent",
+  "namespace": "com.example.book.event",
+  "fields": [
+    { "name": "userId", "type": "string" },
+    { "name": "hotelId", "type": "string" }
+  ]
+}

@@ -28,4 +28,5 @@ public class HotelController {
     public List<HotelResponse> getAllHotels() {
         return hotelService.getAllHotels();
     }
+
 }

@@ -3,7 +3,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.booking_service.repository.BookRepository;
 import com.example.booking_service.dto.*;
-import com.example.booking_service.event.BookCreateEvent;
+import com.example.book.event.BookCreateEvent;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import com.example.booking_service.model.Book;
@@ -25,9 +25,10 @@ public class BookService {
         book.setUserId(bookCreateRequest.userId());
         bookRepository.save(book);
 
-        BookCreateEvent bookCreateEvent = new BookCreateEvent(book.getUserId(), book.getHotelId());
-
-        kafkaTemplate.send("book-created", bookCreateEvent);
+        BookCreateEvent bookCreateEvent = new BookCreateEvent();
+        bookCreateEvent.setUserId("test1");
+        bookCreateEvent.setHotelId("test2");
+        kafkaTemplate.send("book", bookCreateEvent);
 
     }
 

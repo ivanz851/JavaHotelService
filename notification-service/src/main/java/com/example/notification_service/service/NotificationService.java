@@ -7,7 +7,7 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
-import com.example.notification_service.book.event.BookCreateEvent;
+import com.example.book.event.BookCreateEvent;
 
 @Service
 @RequiredArgsConstructor
@@ -16,7 +16,7 @@ public class NotificationService {
 
     private final JavaMailSender javaMailSender;
 
-    @KafkaListener(topics = "book-created")
+    @KafkaListener(topics = "book")
     public void listen(BookCreateEvent bookCreateEvent) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);

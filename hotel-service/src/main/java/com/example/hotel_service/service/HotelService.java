@@ -24,6 +24,7 @@ public class HotelService {
         hotelRepository.save(hotel);
     }
 
+
     public List<HotelResponse> getAllHotels() {
         return hotelRepository.findAll()
                 .stream()
@@ -38,4 +39,5 @@ public class HotelService {
                 ))
                 .toList();
     }
+
 }
