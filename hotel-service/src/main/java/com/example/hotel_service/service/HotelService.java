@@ -32,6 +32,7 @@ public class HotelService {
         hotelRepository.save(hotel);
     }
 
+
     public List<HotelResponse> getAllHotels() {
         return hotelRepository.findAll()
                 .stream()
@@ -46,6 +47,7 @@ public class HotelService {
                 ))
                 .toList();
     }
+
 
     public void addRoom(Long hotelId, RoomCreateRequest request) {
         Hotel hotel = hotelRepository.findById(hotelId)
@@ -74,4 +76,5 @@ public class HotelService {
                 ))
                 .toList();
     }
+
 }

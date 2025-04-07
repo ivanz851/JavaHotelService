@@ -41,4 +41,5 @@ public class HotelController {
     public List<RoomResponse> getRoomsByHotel(@PathVariable Long hotelId) {
         return hotelService.getRoomsByHotel(hotelId);
     }
+
 }
