@@ -3,7 +3,7 @@
  *
  * DO NOT EDIT DIRECTLY
  */
-package com.example.notification_service.book.event;
+package com.example.book.event;
 
 import org.apache.avro.generic.GenericArray;
 import org.apache.avro.specific.SpecificData;
@@ -14,10 +14,10 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class BookCreateEvent extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 2233780465718018543L;
+  private static final long serialVersionUID = 466647982341626783L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"BookCreateEvent\",\"namespace\":\"com.example.notification_service.book.event\",\"fields\":[{\"name\":\"userId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"hotelId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"BookCreateEvent\",\"namespace\":\"com.example.book.event\",\"fields\":[{\"name\":\"userId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"hotelId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
@@ -158,8 +158,8 @@ public class BookCreateEvent extends org.apache.avro.specific.SpecificRecordBase
    * Creates a new BookCreateEvent RecordBuilder.
    * @return A new BookCreateEvent RecordBuilder
    */
-  public static com.example.notification_service.book.event.BookCreateEvent.Builder newBuilder() {
-    return new com.example.notification_service.book.event.BookCreateEvent.Builder();
+  public static com.example.book.event.BookCreateEvent.Builder newBuilder() {
+    return new com.example.book.event.BookCreateEvent.Builder();
   }
 
   /**
@@ -167,11 +167,11 @@ public class BookCreateEvent extends org.apache.avro.specific.SpecificRecordBase
    * @param other The existing builder to copy.
    * @return A new BookCreateEvent RecordBuilder
    */
-  public static com.example.notification_service.book.event.BookCreateEvent.Builder newBuilder(com.example.notification_service.book.event.BookCreateEvent.Builder other) {
+  public static com.example.book.event.BookCreateEvent.Builder newBuilder(com.example.book.event.BookCreateEvent.Builder other) {
     if (other == null) {
-      return new com.example.notification_service.book.event.BookCreateEvent.Builder();
+      return new com.example.book.event.BookCreateEvent.Builder();
     } else {
-      return new com.example.notification_service.book.event.BookCreateEvent.Builder(other);
+      return new com.example.book.event.BookCreateEvent.Builder(other);
     }
   }
 
@@ -180,11 +180,11 @@ public class BookCreateEvent extends org.apache.avro.specific.SpecificRecordBase
    * @param other The existing instance to copy.
    * @return A new BookCreateEvent RecordBuilder
    */
-  public static com.example.notification_service.book.event.BookCreateEvent.Builder newBuilder(com.example.notification_service.book.event.BookCreateEvent other) {
+  public static com.example.book.event.BookCreateEvent.Builder newBuilder(com.example.book.event.BookCreateEvent other) {
     if (other == null) {
-      return new com.example.notification_service.book.event.BookCreateEvent.Builder();
+      return new com.example.book.event.BookCreateEvent.Builder();
     } else {
-      return new com.example.notification_service.book.event.BookCreateEvent.Builder(other);
+      return new com.example.book.event.BookCreateEvent.Builder(other);
     }
   }
 
@@ -207,7 +207,7 @@ public class BookCreateEvent extends org.apache.avro.specific.SpecificRecordBase
      * Creates a Builder by copying an existing Builder.
      * @param other The existing Builder to copy.
      */
-    private Builder(com.example.notification_service.book.event.BookCreateEvent.Builder other) {
+    private Builder(com.example.book.event.BookCreateEvent.Builder other) {
       super(other);
       if (isValidValue(fields()[0], other.userId)) {
         this.userId = data().deepCopy(fields()[0].schema(), other.userId);
@@ -223,7 +223,7 @@ public class BookCreateEvent extends org.apache.avro.specific.SpecificRecordBase
      * Creates a Builder by copying an existing BookCreateEvent instance
      * @param other The existing instance to copy.
      */
-    private Builder(com.example.notification_service.book.event.BookCreateEvent other) {
+    private Builder(com.example.book.event.BookCreateEvent other) {
       super(SCHEMA$, MODEL$);
       if (isValidValue(fields()[0], other.userId)) {
         this.userId = data().deepCopy(fields()[0].schema(), other.userId);
@@ -249,7 +249,7 @@ public class BookCreateEvent extends org.apache.avro.specific.SpecificRecordBase
       * @param value The value of 'userId'.
       * @return This builder.
       */
-    public com.example.notification_service.book.event.BookCreateEvent.Builder setUserId(java.lang.String value) {
+    public com.example.book.event.BookCreateEvent.Builder setUserId(java.lang.String value) {
       validate(fields()[0], value);
       this.userId = value;
       fieldSetFlags()[0] = true;
@@ -269,7 +269,7 @@ public class BookCreateEvent extends org.apache.avro.specific.SpecificRecordBase
       * Clears the value of the 'userId' field.
       * @return This builder.
       */
-    public com.example.notification_service.book.event.BookCreateEvent.Builder clearUserId() {
+    public com.example.book.event.BookCreateEvent.Builder clearUserId() {
       userId = null;
       fieldSetFlags()[0] = false;
       return this;
@@ -289,7 +289,7 @@ public class BookCreateEvent extends org.apache.avro.specific.SpecificRecordBase
       * @param value The value of 'hotelId'.
       * @return This builder.
       */
-    public com.example.notification_service.book.event.BookCreateEvent.Builder setHotelId(java.lang.String value) {
+    public com.example.book.event.BookCreateEvent.Builder setHotelId(java.lang.String value) {
       validate(fields()[1], value);
       this.hotelId = value;
       fieldSetFlags()[1] = true;
@@ -309,7 +309,7 @@ public class BookCreateEvent extends org.apache.avro.specific.SpecificRecordBase
       * Clears the value of the 'hotelId' field.
       * @return This builder.
       */
-    public com.example.notification_service.book.event.BookCreateEvent.Builder clearHotelId() {
+    public com.example.book.event.BookCreateEvent.Builder clearHotelId() {
       hotelId = null;
       fieldSetFlags()[1] = false;
       return this;

@@ -21,5 +21,4 @@ public class HotelController {
         hotelService.CreateHotel(hotelCreateRequest);
         return "Hotel created";
     }
-
 }

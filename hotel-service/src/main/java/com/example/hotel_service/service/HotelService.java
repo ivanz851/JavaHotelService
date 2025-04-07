@@ -20,4 +20,5 @@ public class HotelService {
         hotel.setEmail(hotelCreateRequest.email());
         hotelRepository.save(hotel);
     }
+
 }
