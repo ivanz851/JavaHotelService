@@ -1,4 +1,4 @@
-package com.example.booking_service.event;
+package com.example.notification_service.book.event;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
