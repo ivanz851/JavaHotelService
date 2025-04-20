@@ -1,17 +1,55 @@
-version: '4'
+version: '3.8'
 
 services:
-  postgres:
+  booking-svc:
+    build:
+      context: .
+      dockerfile: booking-service/Dockerfile
+    container_name: booking-svc
+    restart: always
+    ports:
+      - "8082:8082"
+    environment:
+      DATABASE_URL: "postgres://postgres:password@postgres-booking:5432/book_db?sslmode=disable"
+    depends_on:
+      - postgres-booking
+
+  hotel-svc:
+    build:
+      context: .
+      dockerfile: hotel-service/Dockerfile
+    container_name: hotel-svc
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      DATABASE_URL: "postgres://postgres:password@postgres-hotel:5432/hotels_db?sslmode=disable"
+    depends_on:
+      - postgres-hotel
+
+  postgres-booking:
     image: postgres:latest
     restart: always
     environment:
+      POSTGRES_DB: book_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: book_db
     ports:
       - "5432:5432"
     volumes:
-      - ./postgresql:/var/lib/postgresql/data
+      - postgres-booking-data:/var/lib/postgresql/data
+
+  postgres-hotel:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: hotels_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5431:5432"
+    volumes:
+      - postgres-hotel-data:/var/lib/postgresql/data
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
@@ -33,7 +71,7 @@ services:
       - zookeeper
     environment:
       KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
@@ -48,7 +86,7 @@ services:
       - "8085:8081"
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
-      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'broker:29092'
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: "broker:29092"
       SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
 
   kafka-ui:
@@ -61,6 +99,9 @@ services:
     environment:
       KAFKA_CLUSTERS_NAME: local
       KAFKA_CLUSTERS_BOOTSTRAPSERVERS: broker:29092
-      #      KAFKA_CLUSTERS_SCHEMAREGISTRY: http://schema-registry:8081
-      DYNAMIC_CONFIG_ENABLED: 'true'
+      DYNAMIC_CONFIG_ENABLED: "true"
+
+volumes:
+  postgres-booking-data:
+  postgres-hotel-data:
 
