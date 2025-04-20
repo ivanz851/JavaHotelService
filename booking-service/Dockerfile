@@ -14,7 +14,7 @@ WORKDIR /app
 
 COPY --from=builder ./app/target/*.jar app.jar
 
-ENV SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-booking:5432/book
+ENV SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-booking:5432/book_db
 ENV SPRING_DATASOURCE_USERNAME=postgres
 ENV SPRING_DATASOURCE_PASSWORD=password
 

@@ -10,7 +10,7 @@ services:
     ports:
       - "8082:8082"
     environment:
-      DATABASE_URL: "postgres://postgres:password@postgres-booking:5432/book?sslmode=disable"
+      DATABASE_URL: "postgres://postgres:password@postgres-booking:5432/book_db?sslmode=disable"
     depends_on:
       - postgres-booking
 
@@ -31,9 +31,9 @@ services:
     image: postgres:latest
     restart: always
     environment:
+      POSTGRES_DB: book_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: book
     ports:
       - "5432:5432"
     volumes:
@@ -43,9 +43,9 @@ services:
     image: postgres:latest
     restart: always
     environment:
+      POSTGRES_DB: hotels_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: hotels_db
     ports:
       - "5431:5432"
     volumes:
