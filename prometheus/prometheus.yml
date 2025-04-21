@@ -1,0 +1,19 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+  
+  - job_name: 'hotels-db'
+    static_configs:
+      - targets: ['hotels_exporter:9187']
+    metrics_path: /metrics
+
+  - job_name: 'booking-db'
+    static_configs:
+      - targets: ['booking_exporter:9188']
+    metrics_path: /metrics
+
