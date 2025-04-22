@@ -9,6 +9,8 @@ import com.example.hotel_service.model.Room;
 import com.example.hotel_service.repository.HotelRepository;
 import com.example.hotel_service.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -33,9 +35,8 @@ public class HotelService {
     }
 
 
-    public List<HotelResponse> getAllHotels() {
-        return hotelRepository.findAll()
-                .stream()
+    public Page<HotelResponse> getAllHotels(Pageable pageable) {
+        return hotelRepository.findAll(pageable)
                 .map(hotel -> new HotelResponse(
                         hotel.getId(),
                         hotel.getName(),
@@ -44,8 +45,7 @@ public class HotelService {
                         hotel.getCountry(),
                         hotel.getPhone(),
                         hotel.getEmail()
-                ))
-                .toList();
+                ));
     }
 
 

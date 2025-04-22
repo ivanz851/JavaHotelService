@@ -1,12 +1,13 @@
 package com.example.hotel_service.controller;
 
-import com.example.hotel_service.dto.HotelCreateRequest;
-import com.example.hotel_service.dto.HotelResponse;
-import com.example.hotel_service.dto.RoomCreateRequest;
-import com.example.hotel_service.dto.RoomResponse;
+import com.example.hotel_service.dto.*;
 import com.example.hotel_service.service.HotelService;
 import lombok.RequiredArgsConstructor;
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +26,9 @@ public class HotelController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<HotelResponse> getAllHotels() {
-        return hotelService.getAllHotels();
+    public PaginatedResponse<HotelResponse> getAllHotels(@PageableDefault(size = 10, sort = "name") Pageable pageable) {
+        Page<HotelResponse> hotelsPage = hotelService.getAllHotels(pageable);
+        return new PaginatedResponse<>(hotelsPage);
     }
 
     @PostMapping("/{hotelId}/room")
