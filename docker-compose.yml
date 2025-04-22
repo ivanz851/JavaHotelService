@@ -10,7 +10,7 @@ services:
     ports:
       - "8082:8082"
     environment:
-      DATABASE_URL: "postgres://postgres:password@postgres-booking:5432/book_db?sslmode=disable"
+      DATABASE_URL: ${BOOKING_DB_URL}
     depends_on:
       - postgres-booking
 
@@ -23,7 +23,7 @@ services:
     ports:
       - "8081:8081"
     environment:
-      DATABASE_URL: "postgres://postgres:password@postgres-hotel:5432/hotels_db?sslmode=disable"
+      DATABASE_URL: ${HOTEL_DB_URL}
     depends_on:
       - postgres-hotel
 
@@ -31,9 +31,9 @@ services:
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_DB: book_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ${BOOKING_DB}
+      POSTGRES_USER: ${BOOKING_USER}
+      POSTGRES_PASSWORD: ${BOOKING_PASS}
     ports:
       - "5432:5432"
     volumes:
@@ -43,9 +43,9 @@ services:
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_DB: hotels_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ${HOTEL_DB}
+      POSTGRES_USER: ${HOTEL_USER}
+      POSTGRES_PASSWORD: ${HOTEL_PASS}
     ports:
       - "5431:5432"
     volumes:
@@ -112,7 +112,7 @@ services:
     container_name: hotels_exporter
     restart: always
     environment:
-      DATA_SOURCE_NAME: "postgresql://postgres:password@postgres-hotel:5432/hotels_db?sslmode=disable"
+      DATA_SOURCE_NAME: ${HOTEL_DB_URL}
     ports:
       - "9187:9187"
     depends_on:
@@ -123,7 +123,7 @@ services:
     container_name: booking_exporter
     restart: always
     environment:
-      DATA_SOURCE_NAME: "postgresql://postgres:password@postgres-booking:5432/book_db?sslmode=disable"
+      DATA_SOURCE_NAME: ${BOOKING_DB_URL}
     ports:
       - "9188:9188"
     depends_on:
