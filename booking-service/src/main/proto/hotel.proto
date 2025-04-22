@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package hotel;
+option java_multiple_files = true;
+option java_package = "com.example.hotel.grpc";
+option java_outer_classname = "Hotel";
+
+
+
+// Важно: Используйте camelCase для имен сообщений
+message CheckRoomAvailabilityRequest {
+  int64 hotel_id = 1;
+  int64 room_id = 2;
+}
+
+message CheckRoomAvailabilityResponse {
+  float price = 1;
+}
+
+service HotelService {
+  rpc RoomPrice(CheckRoomAvailabilityRequest) returns (CheckRoomAvailabilityResponse);
+}
