@@ -9,7 +9,7 @@ import io.grpc.StatusRuntimeException;
 
 import java.util.concurrent.TimeUnit;
 
-public class GrpcServiceBook extends HotelServiceGrpc.HotelServiceImplBase {
+public class GrpcServiceBook {
 
     private final ManagedChannel channel;
     private final HotelServiceGrpc.HotelServiceBlockingStub blockingStub;
@@ -26,17 +26,21 @@ public class GrpcServiceBook extends HotelServiceGrpc.HotelServiceImplBase {
         channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
     }
 
-    public void getRoomPrice(long hotelId, long roomId) {
+    public float getRoomPrice(long hotelId, long roomId) {
         CheckRoomAvailabilityRequest request = CheckRoomAvailabilityRequest.newBuilder()
                 .setHotelId(hotelId)
                 .setRoomId(roomId)
                 .build();
 
-        try {
-            CheckRoomAvailabilityResponse response = blockingStub.roomPrice(request);
-            System.out.printf("Цена за номер: %.2f%n", response.getPrice());
-        } catch (StatusRuntimeException e) {
-            System.err.println("RPC failed: " + e.getStatus());
-        }
+        CheckRoomAvailabilityResponse response = blockingStub.roomPrice(request);
+        return response.getPrice();
+
+//        try {
+//            CheckRoomAvailabilityResponse response = blockingStub.roomPrice(request);
+//            return response.getPrice();
+//            System.out.printf("Цена за номер: %.2f%n", response.getPrice());
+//        } catch (StatusRuntimeException e) {
+//            System.err.println("RPC failed: " + e.getStatus());
+//        }
     }
 }

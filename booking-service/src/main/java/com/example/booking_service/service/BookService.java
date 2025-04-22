@@ -23,6 +23,11 @@ public class BookService {
         book.setHotelId(bookCreateRequest.hotelId());
         book.setRoomId(bookCreateRequest.roomId());
         book.setUserId(bookCreateRequest.userId());
+
+        GrpcServiceBook grpcServiceBook = new GrpcServiceBook("localhost", 9090);
+        float price = grpcServiceBook.getRoomPrice(book.getHotelId(), book.getRoomId());
+        System.out.println("Response received");
+
         bookRepository.save(book);
 
         BookCreateEvent bookCreateEvent = new BookCreateEvent();
