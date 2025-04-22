@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/hotel")
 @RequiredArgsConstructor
 public class HotelController {
+
     private final HotelService hotelService;
 
     @PostMapping
