@@ -14,6 +14,6 @@ scrape_configs:
 
   - job_name: 'booking-db'
     static_configs:
-      - targets: ['booking_exporter:9188']
+      - targets: ['booking_exporter:9187']
     metrics_path: /metrics
 

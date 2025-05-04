@@ -27,6 +27,15 @@ services:
     depends_on:
       - postgres-hotel
 
+  notification-svc:
+    build:
+      context: .
+      dockerfile: notification-service/Dockerfile
+    container_name: notify-svc
+    restart: always
+    ports:
+      - "8083:8083"
+
   postgres-booking:
     image: postgres:latest
     restart: always
@@ -125,7 +134,7 @@ services:
     environment:
       DATA_SOURCE_NAME: "postgresql://postgres:password@postgres-booking:5432/book_db?sslmode=disable"
     ports:
-      - "9188:9188"
+      - "9188:9187"
     depends_on:
       - postgres-booking
 
