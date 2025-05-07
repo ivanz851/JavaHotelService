@@ -7,14 +7,19 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 import java.util.concurrent.TimeUnit;
 
+@Service
 public class GrpcServiceBook {
 
     private final ManagedChannel channel;
     private final HotelServiceGrpc.HotelServiceBlockingStub blockingStub;
 
-    public GrpcServiceBook(String host, int port) {
+    public GrpcServiceBook(@Value("${grpc.hotel.host}") String host,
+                           @Value("${grpc.hotel.port}") int port) {
         this.channel = ManagedChannelBuilder
                 .forAddress(host, port)
                 .usePlaintext()
@@ -34,13 +39,5 @@ public class GrpcServiceBook {
 
         CheckRoomAvailabilityResponse response = blockingStub.roomPrice(request);
         return response.getPrice();
-
-//        try {
-//            CheckRoomAvailabilityResponse response = blockingStub.roomPrice(request);
-//            return response.getPrice();
-//            System.out.printf("Цена за номер: %.2f%n", response.getPrice());
-//        } catch (StatusRuntimeException e) {
-//            System.err.println("RPC failed: " + e.getStatus());
-//        }
     }
 }

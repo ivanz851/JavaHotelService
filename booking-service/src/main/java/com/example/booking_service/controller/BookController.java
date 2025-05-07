@@ -16,6 +16,7 @@ public class BookController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public String createBook(@RequestBody BookCreateRequest bookCreateRequest) {
+        System.out.println(bookCreateRequest);
         bookService.CreateBook(bookCreateRequest);
         return "Booking created";
     }

@@ -16,17 +16,15 @@ import java.util.stream.Collectors;
 public class BookService {
     private final BookRepository bookRepository;
     private final KafkaTemplate<String, BookCreateEvent> kafkaTemplate;
-
+    private final GrpcServiceBook grpcServiceBook;
 
     public void CreateBook(BookCreateRequest bookCreateRequest) {
+        float price = grpcServiceBook.getRoomPrice(bookCreateRequest.hotelId(), bookCreateRequest.roomId());
+        System.out.println(price);
         Book book = new Book();
         book.setHotelId(bookCreateRequest.hotelId());
         book.setRoomId(bookCreateRequest.roomId());
         book.setUserId(bookCreateRequest.userId());
-
-        GrpcServiceBook grpcServiceBook = new GrpcServiceBook("localhost", 9090);
-        float price = grpcServiceBook.getRoomPrice(book.getHotelId(), book.getRoomId());
-        System.out.println("Response received");
 
         bookRepository.save(book);
 
