@@ -1,31 +1,7 @@
 version: '3.8'
 
 services:
-  booking-svc:
-    build:
-      context: .
-      dockerfile: booking-service/Dockerfile
-    container_name: booking-svc
-    restart: always
-    ports:
-      - "8082:8082"
-    environment:
-      DATABASE_URL: ${BOOKING_DB_URL}
-    depends_on:
-      - postgres-booking
-
-  hotel-svc:
-    build:
-      context: .
-      dockerfile: hotel-service/Dockerfile
-    container_name: hotel-svc
-    restart: always
-    ports:
-      - "8081:8081"
-    environment:
-      DATABASE_URL: ${HOTEL_DB_URL}
-    depends_on:
-      - postgres-hotel
+  
 
   postgres-booking:
     image: postgres:latest
@@ -128,6 +104,8 @@ services:
       - "9188:9188"
     depends_on:
       - postgres-booking
+    command:
+      - "--web.listen-address=:9188"
 
   prometheus:
     image: prom/prometheus:latest
