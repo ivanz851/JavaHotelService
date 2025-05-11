@@ -134,7 +134,9 @@ services:
     environment:
       DATA_SOURCE_NAME: "postgresql://postgres:password@postgres-booking:5432/book_db?sslmode=disable"
     ports:
-      - "9188:9187"
+      - "9188:9188"
+    command:
+      - "--web.listen-address=:9188"
     depends_on:
       - postgres-booking
 
@@ -158,6 +160,8 @@ services:
       - "3000:3000"
     volumes:
       - grafana-storage:/var/lib/grafana
+      - ./grafana/dashboards:/etc/grafana/dashboards:ro
+      - ./grafana/jsons:/var/lib/grafana/dashboards:ro
     depends_on:
       - prometheus
 
