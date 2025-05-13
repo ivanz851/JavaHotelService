@@ -158,10 +158,15 @@ services:
     container_name: grafana
     ports:
       - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD="admin"
+      - GF_SMTP_USER="admin"
+      - GF_SMTP_PASSWORD="admin"
     volumes:
       - grafana-storage:/var/lib/grafana
-      - ./grafana/dashboards:/etc/grafana/dashboards:ro
-      - ./grafana/jsons:/var/lib/grafana/dashboards:ro
+      - ./grafana/dashboards/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+      - ./grafana/jsons:/var/lib/grafana/dashboards
+      - ./grafana/datasource:/etc/grafana/provisioning/datasources
     depends_on:
       - prometheus
 
