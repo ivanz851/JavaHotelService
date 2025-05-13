@@ -5,7 +5,7 @@ WORKDIR /app
 COPY ./booking-service/pom.xml ./booking-service/mvnw ./booking-service/mvnw.cmd ./
 COPY ./booking-service/.mvn ./.mvn
 
-RUN mvn dependency:go-offline -B
+# RUN mvn dependency:go-offline -B
 
 COPY ./booking-service/src ./src
 RUN mvn package -DskipTests -B

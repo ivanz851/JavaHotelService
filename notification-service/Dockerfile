@@ -4,7 +4,7 @@ WORKDIR /app
 COPY ./notification-service/pom.xml ./notification-service/mvnw ./notification-service/mvnw.cmd ./
 COPY ./notification-service/.mvn ./.mvn
 
-RUN mvn dependency:go-offline -B
+# RUN mvn dependency:go-offline -B
 
 COPY ./notification-service/src ./src
 RUN mvn package -DskipTests -B

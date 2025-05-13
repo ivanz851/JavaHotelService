@@ -4,7 +4,7 @@ WORKDIR /app
 COPY ./hotel-service/pom.xml ./hotel-service/mvnw ./hotel-service/mvnw.cmd ./
 COPY ./hotel-service/.mvn ./.mvn
 
-RUN mvn dependency:go-offline -B
+# RUN mvn dependency:go-offline -B
 
 COPY ./hotel-service/src ./src
 RUN mvn package -DskipTests -B
