@@ -4,21 +4,24 @@ import com.example.hotel.grpc.CheckRoomAvailabilityRequest;
 import com.example.hotel.grpc.CheckRoomAvailabilityResponse;
 import com.example.hotel.grpc.HotelServiceGrpc;
 
+import com.example.hotel_service.dto.RoomResponse;
 import com.example.hotel_service.model.Room;
+import com.example.hotel_service.repository.HotelRepository;
 import com.example.hotel_service.repository.RoomRepository;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 
+import java.util.List;
+
 
 @GrpcService
 public class GrpcServiceHotel extends HotelServiceGrpc.HotelServiceImplBase {
 
+    private final HotelService hotelService;
 
-    private final RoomRepository roomRepository;
-
-    public GrpcServiceHotel(RoomRepository roomRepository) {
-        this.roomRepository = roomRepository;
+    public GrpcServiceHotel(HotelService hotelService) {
+        this.hotelService = hotelService;
     }
 
     @Override
@@ -44,9 +47,15 @@ public class GrpcServiceHotel extends HotelServiceGrpc.HotelServiceImplBase {
     }
 
     private float calculatePrice(long hotelId, long roomId) {
-        Room room = roomRepository.findById(roomId).
-                orElseThrow(() -> new IllegalArgumentException("Room not found"));
-        return room.getPricePerNight().floatValue();
+
+        List<RoomResponse> rooms = hotelService.getRoomsByHotel(hotelId);
+
+        return rooms.stream()
+                .filter(room -> room.id().equals(roomId))
+                .findFirst()
+                .map(RoomResponse::pricePerNight)
+                .orElseThrow(() -> new IllegalArgumentException("Room not found in specified hotel"))
+                .floatValue();
     }
 
 }
