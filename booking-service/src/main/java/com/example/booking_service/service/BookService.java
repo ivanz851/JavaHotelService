@@ -29,8 +29,8 @@ public class BookService {
         bookRepository.save(book);
 
         BookCreateEvent bookCreateEvent = new BookCreateEvent();
-        bookCreateEvent.setUserId("test1");
-        bookCreateEvent.setHotelId("test2");
+        bookCreateEvent.setUserId(String.valueOf(bookCreateRequest.userId()));
+        bookCreateEvent.setHotelId(String.valueOf(bookCreateRequest.hotelId()));
         kafkaTemplate.send("book", bookCreateEvent);
 
     }
