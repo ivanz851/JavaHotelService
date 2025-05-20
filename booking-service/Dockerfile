@@ -1,12 +1,14 @@
 FROM maven:3.9-eclipse-temurin-21 AS builder
 
 WORKDIR /app
+
 COPY ./booking-service/pom.xml ./booking-service/mvnw ./booking-service/mvnw.cmd ./
-RUN mvn dependency:go-offline
+COPY ./booking-service/.mvn ./.mvn
+
+# RUN mvn dependency:go-offline -B
 
 COPY ./booking-service/src ./src
-COPY ./booking-service/.mvn ./.mvn
-RUN mvn package -DskipTests
+RUN mvn package -DskipTests -B
 
 FROM eclipse-temurin:21-jre-jammy
 
