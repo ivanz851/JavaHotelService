@@ -3,6 +3,33 @@ version: '3.8'
 services:
   
 
+  booking-svc:
+    build:
+      context: .
+      dockerfile: booking-service/Dockerfile
+    container_name: booking-svc
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: "postgres://postgres:password@postgres-booking:5432/book_db?sslmode=disable"
+    depends_on:
+      - postgres-booking
+
+  hotel-svc:
+    build:
+      context: .
+      dockerfile: hotel-service/Dockerfile
+    container_name: hotel-svc
+    restart: always
+    ports:
+      - "8081:8081"
+      - "9091:9091"
+    environment:
+      DATABASE_URL: "postgres://postgres:password@postgres-hotel:5432/hotels_db?sslmode=disable"
+    depends_on:
+      - postgres-hotel
+
   notification-svc:
     build:
       context: .
@@ -11,6 +38,7 @@ services:
     restart: always
     ports:
       - "8083:8083"
+
 
   postgres-booking:
     image: postgres:latest
@@ -111,8 +139,6 @@ services:
       DATA_SOURCE_NAME: ${BOOKING_DB_URL}
     ports:
       - "9188:9188"
-    command:
-      - "--web.listen-address=:9188"
     depends_on:
       - postgres-booking
     command:

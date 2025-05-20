@@ -20,7 +20,7 @@ ENV SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-booking:5432/book_db
 ENV SPRING_DATASOURCE_USERNAME=postgres
 ENV SPRING_DATASOURCE_PASSWORD=password
 
-EXPOSE 8082
+EXPOSE 8080
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
 

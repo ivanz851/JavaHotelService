@@ -7,7 +7,8 @@ COPY ./hotel-service/.mvn ./.mvn
 # RUN mvn dependency:go-offline -B
 
 COPY ./hotel-service/src ./src
-RUN mvn package -DskipTests -B
+
+RUN mvn package -Dmaven.test.skip=true -B
 
 FROM eclipse-temurin:21-jre-jammy
 
