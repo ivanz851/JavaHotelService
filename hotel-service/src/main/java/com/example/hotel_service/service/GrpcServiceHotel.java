@@ -4,12 +4,26 @@ import com.example.hotel.grpc.CheckRoomAvailabilityRequest;
 import com.example.hotel.grpc.CheckRoomAvailabilityResponse;
 import com.example.hotel.grpc.HotelServiceGrpc;
 
+import com.example.hotel_service.dto.RoomResponse;
+import com.example.hotel_service.model.Room;
+import com.example.hotel_service.repository.HotelRepository;
+import com.example.hotel_service.repository.RoomRepository;
+import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
+
+import java.util.List;
 
 
 @GrpcService
 public class GrpcServiceHotel extends HotelServiceGrpc.HotelServiceImplBase {
+
+    private final HotelService hotelService;
+
+    public GrpcServiceHotel(HotelService hotelService) {
+        this.hotelService = hotelService;
+    }
+
     @Override
     public void roomPrice(CheckRoomAvailabilityRequest request,
                           StreamObserver<CheckRoomAvailabilityResponse> responseObserver) {
@@ -17,18 +31,31 @@ public class GrpcServiceHotel extends HotelServiceGrpc.HotelServiceImplBase {
         long hotelId = request.getHotelId();
         long roomId = request.getRoomId();
 
-        float price = calculatePrice(hotelId, roomId);
+        try {
+            float price = calculatePrice(hotelId, roomId);
 
-        CheckRoomAvailabilityResponse response = CheckRoomAvailabilityResponse.newBuilder()
-                .setPrice(price)
-                .build();
+            CheckRoomAvailabilityResponse response = CheckRoomAvailabilityResponse.newBuilder()
+                    .setPrice(price)
+                    .build();
 
-        responseObserver.onNext(response);
-        responseObserver.onCompleted();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            responseObserver.onError(Status.NOT_FOUND.withDescription("Room not found").asException());
+        }
     }
 
     private float calculatePrice(long hotelId, long roomId) {
-        return 100.0f + (hotelId % 10) * 10 + (roomId % 5) * 5;
+
+        List<RoomResponse> rooms = hotelService.getRoomsByHotel(hotelId);
+
+        return rooms.stream()
+                .filter(room -> room.id().equals(roomId))
+                .findFirst()
+                .map(RoomResponse::pricePerNight)
+                .orElseThrow(() -> new IllegalArgumentException("Room not found in specified hotel"))
+                .floatValue();
     }
 
 }
