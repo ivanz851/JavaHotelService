@@ -17,3 +17,13 @@ scrape_configs:
       - targets: ['booking_exporter:9188']
     metrics_path: /metrics
 
+  - job_name: 'hotel-metrics'
+    static_configs:
+      - targets: ['hotel-svc:8081']
+    metrics_path: /actuator/prometheus
+
+  - job_name: 'booking-metrics'
+    static_configs:
+      - targets: ['booking-svc:8080']
+    metrics_path: /actuator/prometheus
+
