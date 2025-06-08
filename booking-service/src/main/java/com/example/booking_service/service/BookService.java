@@ -7,6 +7,7 @@ import com.example.book.event.BookCreateEvent;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import com.example.booking_service.model.Book;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +19,7 @@ public class BookService {
     private final KafkaTemplate<String, BookCreateEvent> kafkaTemplate;
     private final GrpcServiceBook grpcServiceBook;
 
+    @Transactional
     public void CreateBook(BookCreateRequest bookCreateRequest) {
         float price = grpcServiceBook.getRoomPrice(bookCreateRequest.hotelId(), bookCreateRequest.roomId());
         System.out.println(price);

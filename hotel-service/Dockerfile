@@ -1,6 +1,8 @@
 FROM maven:3.9-eclipse-temurin-21 AS builder
 
 WORKDIR /app
+
+COPY ./proto /proto
 COPY ./hotel-service/pom.xml ./hotel-service/mvnw ./hotel-service/mvnw.cmd ./
 COPY ./hotel-service/.mvn ./.mvn
 

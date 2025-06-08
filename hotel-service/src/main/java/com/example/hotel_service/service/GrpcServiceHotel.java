@@ -42,7 +42,20 @@ public class GrpcServiceHotel extends HotelServiceGrpc.HotelServiceImplBase {
             responseObserver.onCompleted();
 
         } catch (Exception e) {
-            responseObserver.onError(Status.NOT_FOUND.withDescription("Room not found").asException());
+            responseObserver.onError(mapExceptionToStatus(e).asException());
+        }
+    }
+
+    private Status mapExceptionToStatus(Exception e) {
+        if (e instanceof IllegalArgumentException) {
+            return Status.NOT_FOUND.withDescription(e.getMessage());
+        } else if (e instanceof IllegalStateException) {
+            return Status.FAILED_PRECONDITION.withDescription(e.getMessage());
+        } else if (e instanceof UnsupportedOperationException) {
+            return Status.UNIMPLEMENTED.withDescription(e.getMessage());
+        } else {
+            return Status.INTERNAL.withDescription("Internal server error")
+                    .withCause(e);
         }
     }
 

@@ -1,7 +1,7 @@
 FROM maven:3.9-eclipse-temurin-21 AS builder
 
 WORKDIR /app
-
+COPY ./proto /proto
 COPY ./booking-service/pom.xml ./booking-service/mvnw ./booking-service/mvnw.cmd ./
 COPY ./booking-service/.mvn ./.mvn
 
