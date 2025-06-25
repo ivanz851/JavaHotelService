@@ -1,6 +1,6 @@
 # Система бронирования отелей
 
-![image](media/components-diagram.png)
+![image](https://github.com/user-attachments/assets/cd3e0488-1cf2-4e14-b18b-5cfc0d8962e2)
 
 Проект представляет собой микросервисную систему для бронирования отелей, построенную с использованием принципов Domain-Driven Design (DDD) для структурирования доменной области и её компонентов.
 
